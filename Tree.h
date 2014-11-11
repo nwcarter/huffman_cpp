@@ -1,8 +1,8 @@
 #ifndef TREE_H
 #define TREE_H
 
-using namespace std;
 #include <string>
+using namespace std;
 
 class Tree
 {

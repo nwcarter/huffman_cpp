@@ -4,8 +4,10 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Tree.h"
 using namespace std;
+
+#include "Tree.h"
+#include "Stack.h"
 
 void printTree(Tree* t);
 bool Compare(Tree *t1, Tree *t2);
@@ -21,19 +23,25 @@ int main()
 
 	for (int x = 0; x < list.size(); x++)
 	{
-		cout << list[x]->toString() << endl;
+//		cout << list[x]->toString() << endl;
 	}
-	
-	
+		
 	Tree *tree = makeTree(list);
-	
-	cout << tree->toString() << endl;
-	Tree *t1 = tree->getLeft();
-
-	cout << tree->getLeft()->getValue() << endl;
-
 	printTree(tree);
 
+	Stack <int> s;
+	s.push(1);
+	s.push(2);
+	s.push(3);
+
+
+	cout << endl << s.toString() << endl;
+	s.pop();
+	cout << s.toString() << endl;
+	s.pop();
+	cout << s.toString() << endl;
+	s.pop();
+	cout << s.toString() << endl;
 
 	return 0;
 }
@@ -65,14 +73,13 @@ void readFile(string filename, vector<Tree*> & v)
 		istringstream iss(line);
 		char letter;
 		int value;
-		/*
+		
 		if (!(iss >> letter >> value)) 
 		{
 			cout << "Error" << endl; 
 			break; 
 		}
-		*/
-		iss >> letter >> value;
+	
 		Tree *t = new Tree(value, letter);
 		v.push_back(t);
 	}
