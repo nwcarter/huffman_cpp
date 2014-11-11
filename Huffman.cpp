@@ -4,33 +4,37 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Huffman.h"
+#include "Tree.h"
 using namespace std;
 
 void printTree(Tree* t);
-bool Compare(Tree t1, Tree t2);
-vector<Tree> readFile(string filename);
-void makeTree(vector<Tree> *list);
+bool Compare(Tree *t1, Tree *t2);
+void readFile(string filename, vector<Tree*> &v);
+Tree* makeTree(vector<Tree*> &list);
 
 int main()
 {
-	vector<Tree> list = readFile("letters.txt");
+	vector<Tree *> list;
+	readFile("letters.txt", list);
 	printf("%s%d\n", "Size: ", (int)list.size());
-	
 	sort(list.begin(), list.end(), Compare);
-
-	makeTree(&list);
 
 	for (int x = 0; x < list.size(); x++)
 	{
-		cout << list[x].toString() << endl;
-	}	
-
-
-
+		cout << list[x]->toString() << endl;
+	}
 	
+	
+	Tree *tree = makeTree(list);
+	
+	cout << tree->toString() << endl;
+	Tree *t1 = tree->getLeft();
 
-//	printTree(&tree);
+	cout << tree->getLeft()->getValue() << endl;
+
+	printTree(tree);
+
+
 	return 0;
 }
 void printTree(Tree* t)
@@ -47,14 +51,14 @@ void printTree(Tree* t)
 	}
 	
 }
-bool Compare(Tree t1, Tree t2)
+bool Compare(Tree *t1, Tree *t2)
 {
-	return t1.getValue() < t2.getValue();
+	return t1->getValue() < t2->getValue();
 }
-vector<Tree> readFile(string filename)
+
+void readFile(string filename, vector<Tree*> & v)
 {
-	std::vector<Tree> v;
-	ifstream infile(filename);
+	ifstream infile(filename.c_str());
 	string line;
 	while(getline(infile, line))
 	{
@@ -69,12 +73,26 @@ vector<Tree> readFile(string filename)
 		}
 		*/
 		iss >> letter >> value;
-		Tree t(value, letter);
+		Tree *t = new Tree(value, letter);
 		v.push_back(t);
 	}
-	return v;
+	return;
 } 
-void makeTree(vector<Tree> *list)
+Tree* makeTree(vector<Tree*> &list)
 {
+	int total;
 
+	while(list.size() > 1)
+	{
+		Tree *t1 = list.at(0);
+		Tree *t2 = list.at(1);
+		total = t1->getValue() + t2->getValue();
+		Tree *t = new Tree(total, '*', t1, t2);
+
+		list.erase(list.begin(), list.begin()+2);
+		list.push_back(t);
+
+		sort(list.begin(), list.end(), Compare);
+	}
+	return list.at(0);
 }
