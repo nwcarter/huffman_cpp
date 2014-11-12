@@ -22,8 +22,6 @@ class Tree
 		char getLetter();
 		Tree* getLeft();
 		Tree* getRight();
-		bool isRightSet();
-		bool isLeftSet();
 };
 
 #endif

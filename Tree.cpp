@@ -44,14 +44,6 @@ Tree* Tree::getRight()
 {
 	return m_right;
 }
-bool Tree::isLeftSet()
-{
-	return m_leftSet;
-}
-bool Tree::isRightSet()
-{
-	return m_rightSet;
-}
 string Tree::toString()
 {
 	char buffer[50];

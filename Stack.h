@@ -16,7 +16,7 @@ template <class T> class Stack
 		T pop();
 		int size();
 		string toString();
-		string reverseString(Stack* stack);
+		string reverseString();
 }; 
 
 template <class T> Stack<T>::Stack()
@@ -37,9 +37,14 @@ template <class T> int Stack<T>::size()
 {
 	return m_stack.size();
 }
-template <class T> string Stack<T>::reverseString(Stack* stack)
+template <class T> string Stack<T>::reverseString()
 {
-	return "hello";
+	string s = "";
+	for (int x = 0; x < m_stack.size(); x++)
+	{
+		s.append(to_string(m_stack[x]));
+	}
+	return s;
 }
 template <class T> string Stack<T>::toString()
 {
